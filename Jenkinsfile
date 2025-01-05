@@ -27,7 +27,7 @@ pipeline {
         }
         always{
             bat "docker compose -f grid.yaml down"
-            bat "docekr compose -f test-suites down"
+            bat "docker compose -f test-suites down"
         }
     }
 }
