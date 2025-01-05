@@ -2,15 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Run Test'){
+        stage('Start Grid'){
             steps {
-                bat "docker compose up"
+                bat "docker compose -f grid.yaml up -d"
             }
         }
 
-        stage('Bring Grid Down'){
+        stage('Run Tests'){
             steps {
-                bat "docker compose down"
+                bat "docker compose -f test-suites.yaml up"
             }
         }
     }
@@ -26,7 +26,8 @@ pipeline {
             echo "I was aborted"
         }
         always{
-            echo "doing clean up"
+            bat "docker compose -f grid.yaml down"
+            bat "docekr compose -f test-suites down"
         }
     }
 }
